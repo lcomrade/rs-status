@@ -143,7 +143,7 @@ func StatusChecker(ii int, format string) {
 		return
 	}
 				
-	if format == "details" {
+	if format == "long" {
 		PrintStatusDetails(apiData)
 		return
 					
@@ -155,7 +155,7 @@ func StatusChecker(ii int, format string) {
 func main() {
 	// Flags
 	argTarget := flag.String("target", "", "Names of pages to be checked, separated by spacing")
-	argFormat := flag.String("format", "short", "Console output format. (short | details)")
+	argFormat := flag.String("format", "short", "Console output format. (short | long)")
 	
 	flag.Parse()
 
