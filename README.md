@@ -1,3 +1,7 @@
+[![Go report](https://goreportcard.com/badge/github.com/lcomrade/rs-status?style=flat-square)](https://goreportcard.com/report/github.com/lcomrade/rs-status)
+[![Release](https://img.shields.io/github/downloads/lcomrade/rs-status/total?style=flat-square)](https://github.com/lcomrade/rs-status/releases/latest)
+[![License](https://img.shields.io/github/license/lcomrade/rs-status?style=flat-square)](https://github.com/lcomrade/rs-status/blob/main/LICENSE)
+
 ## Description
 **rs-status** is utility that allows you to see the availability of popular services from the terminal.
 Many popular services are supported, such as GitHub, Dropbox, DigitalOcean, Discord, Reddit, and others.
