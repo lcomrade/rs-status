@@ -154,10 +154,20 @@ func StatusChecker(ii int, format string) {
 
 func main() {
 	// Flags
+	argList := flag.Bool("list", false, "Print a list of known pages")
 	argTarget := flag.String("target", "", "Names of pages to be checked, separated by spacing")
 	argFormat := flag.String("format", "short", "Console output format. (short | long)")
 	
 	flag.Parse()
+
+	// -list flag
+	if *argList == true {
+		for i := range config.ApiList {
+			fmt.Println(config.ApiList[i].Name)
+		}
+
+		os.Exit(0)
+	}
 
 
 	// Checking pages status
