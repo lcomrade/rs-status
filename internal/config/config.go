@@ -32,6 +32,6 @@ var ApiList = []ApiListType{
 	},
 	{
 		Name: "reddit",
-		URL: "https://www.redditstatus.com",
+		URL:  "https://www.redditstatus.com",
 	},
 }

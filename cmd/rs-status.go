@@ -18,12 +18,12 @@ package main
 import (
 	"../internal/config"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
-	"flag"
 	"strings"
 )
 
@@ -142,14 +142,14 @@ func StatusChecker(ii int, format string) {
 		PrintStatusShort(apiData)
 		return
 	}
-				
+
 	if format == "long" {
 		PrintStatusDetails(apiData)
 		return
-					
+
 	}
-	
-	logError.Fatal("Unknown format '"+format+"'")
+
+	logError.Fatal("Unknown format '" + format + "'")
 }
 
 func main() {
@@ -157,7 +157,8 @@ func main() {
 	argList := flag.Bool("list", false, "Print a list of known pages")
 	argTarget := flag.String("target", "", "Names of pages to be checked, separated by spacing")
 	argFormat := flag.String("format", "short", "Console output format. (short | long)")
-	
+	argHelp := flag.Bool("help", false, "Show help and exit")
+
 	flag.Parse()
 
 	// -list flag
@@ -169,16 +170,21 @@ func main() {
 		os.Exit(0)
 	}
 
+	// -help flag
+	if *argHelp == true {
+		flag.PrintDefaults()
+		os.Exit(0)
+	}
 
 	// Checking pages status
 	if *argTarget == "" || *argTarget == "all" {
 		for ii := range config.ApiList {
 			StatusChecker(ii, *argFormat)
 		}
-		
+
 	} else {
 		targetPages := strings.Fields(*argTarget)
-		
+
 		for i := range targetPages {
 			for ii := range config.ApiList {
 				if targetPages[i] == config.ApiList[ii].Name {
