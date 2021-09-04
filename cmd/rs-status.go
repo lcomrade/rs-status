@@ -28,11 +28,11 @@ import (
 )
 
 // Logining
-var logWarning = log.New(os.Stdout, "Warning: ", log.Lshortfile)
-var logError = log.New(os.Stderr, "Error: ", log.Lshortfile)
+var logWarning = log.New(os.Stdout, colorYellow+"Warning:"+colorNormal+" ", log.Lshortfile)
+var logError = log.New(os.Stderr, colorRed+"Error:"+colorNormal+" ", log.Lshortfile)
 
 // Console colors
-const (
+var (
 	colorGreen  = "\033[1;32m"
 	colorYellow = "\033[1;33m"
 	colorRed    = "\033[1;31m"
@@ -157,9 +157,22 @@ func main() {
 	argList := flag.Bool("list", false, "Print a list of known pages")
 	argTarget := flag.String("target", "", "Names of pages to be checked, separated by spacing")
 	argFormat := flag.String("format", "short", "Console output format. (short | long)")
+	argNoColors := flag.Bool("no-colors", false, "Disable colorized console output")
 	argHelp := flag.Bool("help", false, "Show help and exit")
 
 	flag.Parse()
+
+	// -no-colors
+	if *argNoColors == true {
+		logWarning = log.New(os.Stdout, "Warning: ", log.Lshortfile)
+		logError = log.New(os.Stderr, "Error: ", log.Lshortfile)
+
+		colorGreen = ""
+		colorYellow = ""
+		colorRed = ""
+
+		colorNormal = ""
+	}
 
 	// -list flag
 	if *argList == true {
