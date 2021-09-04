@@ -36,6 +36,7 @@ var (
 	colorGreen  = "\033[1;32m"
 	colorYellow = "\033[1;33m"
 	colorRed    = "\033[1;31m"
+	colorCyan   = "\033[1;36m"
 
 	colorNormal = "\033[0m"
 )
@@ -105,11 +106,15 @@ func ParseApiAnswer(jsonData []byte) APIsummary {
 
 // Print status
 func PrintStatusShort(api APIsummary) {
-	fmt.Println(api.Page.Name+":", api.Status.Description)
+	if api.Status.Description == "All Systems Operational" {
+		fmt.Println(colorGreen+"["+api.Status.Description+"]"+colorNormal, api.Page.Name)
+	} else {
+		fmt.Println(colorYellow+"["+api.Status.Description+"]"+colorNormal, api.Page.Name)
+	}
 }
 
 func PrintStatusDetails(api APIsummary) {
-	fmt.Println("Name:", api.Page.Name)
+	fmt.Println(colorCyan+"Name:"+colorNormal, api.Page.Name)
 	fmt.Println("")
 
 	for i := range api.Components {
@@ -131,7 +136,11 @@ func PrintStatusDetails(api APIsummary) {
 	}
 
 	fmt.Println("")
-	fmt.Println(api.Status.Description)
+	if api.Status.Description == "All Systems Operational" {
+		fmt.Println(colorCyan+"Description:"+colorNormal, colorGreen+api.Status.Description+colorNormal)
+	} else {
+		fmt.Println(colorCyan+"Description:"+colorNormal, colorYellow+api.Status.Description+colorNormal)
+	}
 }
 
 func StatusChecker(ii int, format string) {
@@ -170,6 +179,7 @@ func main() {
 		colorGreen = ""
 		colorYellow = ""
 		colorRed = ""
+		colorCyan = ""
 
 		colorNormal = ""
 	}
