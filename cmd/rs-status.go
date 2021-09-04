@@ -1,3 +1,7 @@
+//  Copyright 2021 Leonid Maslakov
+
+//  License: GPL-3.0-or-later
+
 //  This file is part of rs-status.
 
 //  rs-status is free software: you can redistribute it and/or modify
@@ -25,6 +29,13 @@ import (
 	"net/http"
 	"os"
 	"strings"
+)
+
+// Program information
+var (
+	programName    = "rs-status"
+	programVersion = "0.1"
+	programSiteURL = "https://github.com/lcomrade/rs-status"
 )
 
 // Logining
@@ -168,6 +179,7 @@ func main() {
 	argFormat := flag.String("format", "short", "Console output format. (short | long)")
 	argNoColors := flag.Bool("no-colors", false, "Disable colorized console output")
 	argHelp := flag.Bool("help", false, "Show help and exit")
+	argVersion := flag.Bool("version", false, "Show version and exit")
 
 	flag.Parse()
 
@@ -196,6 +208,20 @@ func main() {
 	// -help flag
 	if *argHelp == true {
 		flag.PrintDefaults()
+		os.Exit(0)
+	}
+
+	// -version flag
+	if *argVersion == true {
+		fmt.Println(programName, programVersion)
+		fmt.Println("")
+		fmt.Println("Site URL:", programSiteURL)
+		fmt.Println("License: GNU GPL version 3 or later <https://www.gnu.org/licenses/>")
+		fmt.Println("")
+		fmt.Println("rs-status  Copyright (C) 2021  Leonid Maslakov")
+		fmt.Println("This is free software, and you are welcome to redistribute it.")
+		fmt.Println("This program comes with ABSOLUTELY NO WARRANTY.")
+
 		os.Exit(0)
 	}
 
