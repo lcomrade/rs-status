@@ -1,1 +1,3 @@
 /dist/*
+/build/windows/build.iss
+/build/windows/choco/*

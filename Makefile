@@ -107,11 +107,6 @@ release:
 	GOOS=plan9 GOARCH=arm   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).plan9.arm   $(MAIN_GO)
 
 	GOOS=solaris GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).solaris.amd64 $(MAIN_GO)
-
-	#Windows
-	GOOS=windows GOARCH=386   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).windows.386   $(MAIN_GO)
-	GOOS=windows GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).windows.amd64 $(MAIN_GO)
-	GOOS=windows GOARCH=arm   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).windows.arm   $(MAIN_GO)
 	
 deb:
 	mkdir -p $(TMP_BUILD_DIR)/$(NAME).$(GOOS).$(GOARCH)/DEBIAN/
