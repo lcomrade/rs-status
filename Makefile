@@ -35,8 +35,8 @@ uninstall:
 	rm $(DESTDIR)$(PREFIX)/bin/$(NAME)
 
 release:
-	#GNU/Linux
-	GOOS=linux GOARCH=386   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.386 $(MAIN_GO)
+	#GNU/Linux 386, amd64, arm64
+	GOOS=linux GOARCH=386   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.386  $(MAIN_GO)
 	GOOS=linux GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.amd64 $(MAIN_GO)
 	GOOS=linux GOARCH=arm64 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.arm64 $(MAIN_GO)
 
@@ -48,6 +48,7 @@ release:
 	GOOS=linux GOARCH=amd64 RPMARCH=x86_64  VERSION=$(VERSION) MAINTAINER="$(MAINTAINER)" make rpm
 	GOOS=linux GOARCH=arm64 RPMARCH=aarch64 VERSION=$(VERSION) MAINTAINER="$(MAINTAINER)" make rpm
 
+	#GNU/Linux ARM
 	GOOS=linux GOARCH=arm GOARM=5 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.arm_v5 $(MAIN_GO)
 	GOOS=linux GOARCH=arm GOARM=6 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.arm_v6 $(MAIN_GO)
 	GOOS=linux GOARCH=arm GOARM=7 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.arm_v7 $(MAIN_GO)
@@ -55,22 +56,63 @@ release:
 	GOOS=linux GOARCH=arm_v5 GOARM=5 DEBARCH=armel  VERSION=$(VERSION) MAINTAINER="$(MAINTAINER)" make deb
 	GOOS=linux GOARCH=arm_v7 GOARM=7 DEBARCH=armhf  VERSION=$(VERSION) MAINTAINER="$(MAINTAINER)" make deb
 
+	#GNU/Linux MIPS
+	GOOS=linux GOARCH=mips     go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.mips     $(MAIN_GO)
+	GOOS=linux GOARCH=mipsle   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.mipsle   $(MAIN_GO)
+	GOOS=linux GOARCH=mips64le go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.mips64le $(MAIN_GO)
+
+	GOOS=linux GOARCH=mips     DEBARCH=mips     VERSION=$(VERSION) MAINTAINER="$(MAINTAINER)" make deb
+	GOOS=linux GOARCH=mipsle   DEBARCH=mipsel   VERSION=$(VERSION) MAINTAINER="$(MAINTAINER)" make deb
+	GOOS=linux GOARCH=mips64le DEBARCH=mips64el VERSION=$(VERSION) MAINTAINER="$(MAINTAINER)" make deb
+
+	#GNU/Linux PPC
+	GOOS=linux GOARCH=ppc64    go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.ppc64   $(MAIN_GO)
+	GOOS=linux GOARCH=ppc64le  go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.ppc64le $(MAIN_GO)
+
+	GOOS=linux GOARCH=ppc64    DEBARCH=ppc64     VERSION=$(VERSION) MAINTAINER="$(MAINTAINER)" make deb
+	GOOS=linux GOARCH=ppc64le  DEBARCH=ppc64el   VERSION=$(VERSION) MAINTAINER="$(MAINTAINER)" make deb
+
+	#GNU/Linux RISC
+	GOOS=linux GOARCH=riscv64  go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.riscv64 $(MAIN_GO)
+
+	GOOS=linux GOARCH=riscv64  DEBARCH=riscv64   VERSION=$(VERSION) MAINTAINER="$(MAINTAINER)" make deb
+
+	#GNU/Linux s390x
+	GOOS=linux GOARCH=s390x  go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.s390x $(MAIN_GO)
+
+	GOOS=linux GOARCH=s390x  DEBARCH=s390x   VERSION=$(VERSION) MAINTAINER="$(MAINTAINER)" make deb
+
 	#BSD
-	GOOS=freebsd GOARCH=386   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).freebsd.386 $(MAIN_GO)
+	GOOS=freebsd GOARCH=386   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).freebsd.386   $(MAIN_GO)
 	GOOS=freebsd GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).freebsd.amd64 $(MAIN_GO)
-	GOOS=freebsd GOARCH=arm   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).freebsd.arm $(MAIN_GO)
+	GOOS=freebsd GOARCH=arm   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).freebsd.arm   $(MAIN_GO)
 	GOOS=freebsd GOARCH=arm64 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).freebsd.arm64 $(MAIN_GO)
 
-	GOOS=openbsd GOARCH=386   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).openbsd.386 $(MAIN_GO)
+	GOOS=openbsd GOARCH=386   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).openbsd.386   $(MAIN_GO)
 	GOOS=openbsd GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).openbsd.amd64 $(MAIN_GO)
-	GOOS=openbsd GOARCH=arm   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).openbsd.arm $(MAIN_GO)
+	GOOS=openbsd GOARCH=arm   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).openbsd.arm   $(MAIN_GO)
 	GOOS=openbsd GOARCH=arm64 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).openbsd.arm64 $(MAIN_GO)
 
-	GOOS=netbsd GOARCH=386    go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).netbsd.386 $(MAIN_GO)
+	GOOS=netbsd GOARCH=386    go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).netbsd.386   $(MAIN_GO)
 	GOOS=netbsd GOARCH=amd64  go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).netbsd.amd64 $(MAIN_GO)
-	GOOS=netbsd GOARCH=arm    go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).netbsd.arm $(MAIN_GO)
+	GOOS=netbsd GOARCH=arm    go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).netbsd.arm   $(MAIN_GO)
 	GOOS=netbsd GOARCH=arm64  go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).netbsd.arm64 $(MAIN_GO)
 
+	#UNIX-like
+	GOOS=darwin GOARCH=amd64  go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).darwin.amd64 $(MAIN_GO)
+	GOOS=darwin GOARCH=arm64  go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).darwin.arm64 $(MAIN_GO)
+
+	GOOS=plan9 GOARCH=386   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).plan9.386   $(MAIN_GO)
+	GOOS=plan9 GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).plan9.amd64 $(MAIN_GO)
+	GOOS=plan9 GOARCH=arm   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).plan9.arm   $(MAIN_GO)
+
+	GOOS=solaris GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).solaris.amd64 $(MAIN_GO)
+
+	#Windows
+	GOOS=windows GOARCH=386   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).windows.386   $(MAIN_GO)
+	GOOS=windows GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).windows.amd64 $(MAIN_GO)
+	GOOS=windows GOARCH=arm   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).windows.arm   $(MAIN_GO)
+	
 deb:
 	mkdir -p $(TMP_BUILD_DIR)/$(NAME).$(GOOS).$(GOARCH)/DEBIAN/
 	
