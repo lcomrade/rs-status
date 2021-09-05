@@ -100,7 +100,6 @@ release:
 
 	#UNIX-like
 	GOOS=darwin GOARCH=amd64  go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).darwin.amd64 $(MAIN_GO)
-	GOOS=darwin GOARCH=arm64  go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).darwin.arm64 $(MAIN_GO)
 
 	GOOS=plan9 GOARCH=386   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).plan9.386   $(MAIN_GO)
 	GOOS=plan9 GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).plan9.amd64 $(MAIN_GO)
