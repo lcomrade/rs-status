@@ -31,5 +31,9 @@ Read more in the help:
 rs-status -help
 ```
 
+## Build Documentation
+- [Building on UNIX-like systems](https://github.com/lcomrade/rs-status/blob/main/docs/make.md)
+- [Build on Windows](https://github.com/lcomrade/rs-status/blob/main/docs/make_bat.md)
+
 ## Bugs and Suggestion
 If you find a bug or have a suggestion, create an Issue [here](https://github.com/lcomrade/rs-status/issues)
