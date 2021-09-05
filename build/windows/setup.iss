@@ -6,7 +6,7 @@
 AllowCancelDuringInstall=no
 AlwaysShowDirOnReadyPage=no
 AppComments={#AppComment}
-AppId={0F62F78E-7CC7-4568-8863-E9FDD0FE29CD}
+AppId={{0F62F78E-7CC7-4568-8863-E9FDD0FE29CD}
 AppReadmeFile={#AppURL}#readme
 AppName={#AppName}
 AppPublisher={#MAINTAINER}

@@ -51,7 +51,7 @@
 	echo #define AppVersion "%VERSION%" >> build\windows\build.iss
 	echo #define GOARCH "%GOARCH%" >> build\windows\build.iss
 	echo #define MAINTAINER "%MAINTAINER%" >> build\windows\build.iss
-	echo #define AppComment "%NAME% - minimalist WEB-server for data transfer via HTTP" >> build\windows\build.iss
+	echo #define AppComment "%SHORT_DESCRIPTION%" >> build\windows\build.iss
 	echo #define AppURL "https://github.com/%GITHUB_USER%/%NAME%" >> build\windows\build.iss
 	
 	@exit /B
@@ -100,13 +100,6 @@
 	rd /S /Q %NAME%.windows.arm\
 	
 	cd %BUILD_ROOT%
-
-
-	echo #define AppName "%NAME%" > build\windows\build.iss
-	echo #define AppVersion "%VERSION%" >> build\windows\build.iss
-	echo #define MAINTAINER "%MAINTAINER%" >> build\windows\build.iss
-	echo #define AppComment "%NAME% - minimalist WEB-server for data transfer via HTTP" >> build\windows\build.iss
-	echo #define AppURL "https://github.com/%GITHUB_USER%/%NAME%" >> build\windows\build.iss
 
 	%ISCC% /DGOARCH=386 /O"%CD%\dist" /F"%NAME%.windows.386.setup" %MAIN_ISS%
 	%ISCC% /DGOARCH=amd64 /O"%CD%\dist" /F"%NAME%.windows.amd64.setup" %MAIN_ISS%
