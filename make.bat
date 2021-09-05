@@ -195,6 +195,20 @@
 	@exit /B
 	
 :scoop
+	@if exist "dist\%NAME%.windows.386.zip" (
+		@for /F "tokens=*" %%i in ('checksum -t=sha256 -f=dist\%NAME%.windows.386.zip') do @set zip_386_sha256=%%i
+	) else (
+		@echo Error: dist\%NAME%.windows.386.zip does not exist
+		@exit /B 1
+	)
+	
+	@if exist "dist\%NAME%.windows.amd64.zip" (
+		@for /F "tokens=*" %%i in ('checksum -t=sha256 -f=dist\%NAME%.windows.amd64.zip') do @set zip_amd64_sha256=%%i
+	) else (
+		@echo Error: dist\%NAME%.windows.amd64.zip does not exist
+		@exit /B 1
+	)
+
 	md dist\
 	echo {> dist\%NAME%.json
 	echo   "version": "%VERSION%",>> dist\%NAME%.json
@@ -203,26 +217,12 @@
 	echo   "homepage": "https://github.com/%GITHUB_USER%/%NAME%/",>> dist\%NAME%.json
 	echo   "architecture": {>> dist\%NAME%.json
 	echo 	  "64bit": {>> dist\%NAME%.json
-	
-	if exist "dist\%NAME%.windows.amd64.zip" (
-		echo 		  "url": "https://github.com/%GITHUB_USER%/%NAME%/releases/download/v%VERSION%/%NAME%.windows.amd64.zip",>> dist\%NAME%.json
-		@for /F "tokens=*" %%i in ('checksum -t=sha256 -f=dist\%NAME%.windows.amd64.zip') do @set zip_amd64_sha256=%%i
-		echo 		  "hash": "%zip_amd64_sha256%">> dist\%NAME%.json
-		
-	) else (
-		echo 		  "url": "https://github.com/%GITHUB_USER%/%NAME%/releases/download/v%VERSION%/%NAME%.windows.amd64.zip">> dist\%NAME%.json
-	)
+	echo 		  "url": "https://github.com/%GITHUB_USER%/%NAME%/releases/download/v%VERSION%/%NAME%.windows.amd64.zip",>> dist\%NAME%.json
+	echo 		  "hash": "%zip_amd64_sha256%">> dist\%NAME%.json
 	echo      },>> dist\%NAME%.json
 	echo      "32bit": {>> dist\%NAME%.json
-	
-	if exist "dist\%NAME%.windows.386.zip" (
-		echo 		  "url": "https://github.com/%GITHUB_USER%/%NAME%/releases/download/v%VERSION%/%NAME%.windows.386.zip",>> dist\%NAME%.json
-		@for /F "tokens=*" %%i in ('checksum -t=sha256 -f=dist\%NAME%.windows.386.zip') do @set zip_386_sha256=%%i
-		echo 		  "hash": "%zip_386_sha256%">> dist\%NAME%.json
-		
-	) else (
-		echo 		  "url": "https://github.com/%GITHUB_USER%/%NAME%/releases/download/v%VERSION%/%NAME%.windows.386.zip">> dist\%NAME%.json
-	)
+	echo 		  "url": "https://github.com/%GITHUB_USER%/%NAME%/releases/download/v%VERSION%/%NAME%.windows.386.zip",>> dist\%NAME%.json
+	echo 		  "hash": "%zip_386_sha256%">> dist\%NAME%.json
 	echo      }>> dist\%NAME%.json
 	echo   },>> dist\%NAME%.json
 	echo   "bin": "%NAME%.exe",>> dist\%NAME%.json
