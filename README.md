@@ -31,6 +31,29 @@ Read more in the help:
 rs-status -help
 ```
 
+## Installation
+### GNU/Linux
+Under Linux there are several options available. All of them can be found on the [release page](https://github.com/lcomrade/rs-status/releases/latest):
+- DEB
+- RPM
+- Lonely binary
+
+### Windows
+Under Windows there are several options available. All of them can be found on the [release page](https://github.com/lcomrade/rs-status/releases/latest):
+- Installer
+- Install from chocolatey: `choco install -y rs-status`
+- Install from scoop:
+```
+scoop bucket add lcomrade https://github.com/lcomrade/ScoopBucket
+scoop install rs-status
+```
+- Or download zip archive from [release page](https://github.com/lcomrade/rs-status/releases/latest)
+
+### Another UNIX-like systems
+1. Download a binary file for your OS and architecture from the [release page](https://github.com/lcomrade/rs-status/releases/latest)
+2. Make the program executable
+3. Place program in `/usr/local/bin/` or in another directory provided for installing binary files
+
 ## Build Documentation
 - [Building on UNIX-like systems](https://github.com/lcomrade/rs-status/blob/main/docs/make.md)
 - [Build on Windows](https://github.com/lcomrade/rs-status/blob/main/docs/make_bat.md)
