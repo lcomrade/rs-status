@@ -34,4 +34,8 @@ var ApiList = []ApiListType{
 		Name: "reddit",
 		URL:  "https://www.redditstatus.com",
 	},
+	{
+		Name: "Zoom",
+		URL:  "https://status.zoom.us",
+	},
 }
