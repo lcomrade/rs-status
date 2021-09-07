@@ -116,6 +116,12 @@ func ParseApiAnswer(jsonData []byte) APIsummary {
 }
 
 // Print status
+func PrintStatusShortErr(api APIsummary) {
+	if api.Status.Description != "All Systems Operational" {
+		fmt.Println(colorYellow+"["+api.Status.Description+"]"+colorNormal, api.Page.Name)
+	}
+}
+
 func PrintStatusShort(api APIsummary) {
 	if api.Status.Description == "All Systems Operational" {
 		fmt.Println(colorGreen+"["+api.Status.Description+"]"+colorNormal, api.Page.Name)
@@ -158,6 +164,11 @@ func StatusChecker(ii int, format string) {
 	rawApiData := GetApiAnswer(config.ApiList[ii].URL + "/api/v2/summary.json")
 	apiData := ParseApiAnswer(rawApiData)
 
+	if format == "short-err" {
+		PrintStatusShortErr(apiData)
+		return
+	}
+
 	if format == "short" {
 		PrintStatusShort(apiData)
 		return
@@ -176,7 +187,7 @@ func main() {
 	// Flags
 	argList := flag.Bool("list", false, "Print a list of known pages")
 	argTarget := flag.String("target", "", "Names of pages to be checked, separated by spacing")
-	argFormat := flag.String("format", "short", "Console output format. (short | long)")
+	argFormat := flag.String("format", "short", "Console output format. (short-err | short | long)")
 	argNoColors := flag.Bool("no-colors", false, "Disable colorized console output")
 	argHelp := flag.Bool("help", false, "Show help and exit")
 	argVersion := flag.Bool("version", false, "Show version and exit")
