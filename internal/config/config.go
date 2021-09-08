@@ -15,6 +15,10 @@ var ApiList = []ApiListType{
 		URL:  "https://status.circleci.com",
 	},
 	{
+		Name: "Codecov",
+		URL:  "https://status.codecov.com",
+	},
+	{
 		Name: "DigitalOcean",
 		URL:  "https://status.digitalocean.com",
 	},
