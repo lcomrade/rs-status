@@ -39,8 +39,16 @@ var ApiList = []ApiListType{
 		URL:  "https://www.githubstatus.com",
 	},
 	{
+		Name: "Mozilla",
+		URL:  "https://status.mozilla.org",
+	},
+	{
 		Name: "npm",
 		URL:  "https://status.npmjs.org",
+	},
+	{
+		Name: "PinterestAds",
+		URL:  "https://www.pintereststatus.com",
 	},
 	{
 		Name: "Intercom",
@@ -49,6 +57,10 @@ var ApiList = []ApiListType{
 	{
 		Name: "reddit",
 		URL:  "https://www.redditstatus.com",
+	},
+	{
+		Name: "RedHat",
+		URL:  "https://status.redhat.com",
 	},
 	{
 		Name: "TravisCI",
