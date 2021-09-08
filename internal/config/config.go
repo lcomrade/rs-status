@@ -51,6 +51,10 @@ var ApiList = []ApiListType{
 		URL:  "https://www.traviscistatus.com",
 	},
 	{
+		Name: "Twitch",
+		URL:  "https://status.twitch.tv",
+	},
+	{
 		Name: "Twitter",
 		URL:  "https://api.twitterstat.us",
 	},
