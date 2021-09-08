@@ -35,6 +35,10 @@ var ApiList = []ApiListType{
 		URL:  "https://www.redditstatus.com",
 	},
 	{
+		Name: "Twitter",
+		URL:  "https://api.twitterstat.us",
+	},
+	{
 		Name: "Zoom",
 		URL:  "https://status.zoom.us",
 	},
