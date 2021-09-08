@@ -39,6 +39,10 @@ var ApiList = []ApiListType{
 		URL:  "https://www.githubstatus.com",
 	},
 	{
+		Name: "npm",
+		URL:  "https://status.npmjs.org",
+	},
+	{
 		Name: "Intercom",
 		URL:  "https://www.intercomstatus.com",
 	},
