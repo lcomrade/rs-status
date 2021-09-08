@@ -31,6 +31,10 @@ var ApiList = []ApiListType{
 		URL:  "https://status.dropbox.com",
 	},
 	{
+		Name: "EpicGames",
+		URL:  "https://status.epicgames.com",
+	},
+	{
 		Name: "GitHub",
 		URL:  "https://www.githubstatus.com",
 	},
