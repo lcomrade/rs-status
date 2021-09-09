@@ -43,6 +43,10 @@ var ApiList = []ApiListType{
 		URL:  "https://status.mozilla.org",
 	},
 	{
+		Name: "Notion",
+		URL:  "https://status.notion.so",
+	},
+	{
 		Name: "npm",
 		URL:  "https://status.npmjs.org",
 	},
