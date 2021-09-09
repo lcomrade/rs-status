@@ -117,22 +117,22 @@ func ParseApiAnswer(jsonData []byte) APIsummary {
 }
 
 // Print status
-func PrintStatusShortErr(api APIsummary, lineEnd string) {
+func PrintStatusShortErr(api APIsummary, targetName string, lineEnd string) {
 	if api.Status.Description != "All Systems Operational" {
-		fmt.Println(colorYellow+"["+api.Status.Description+"]"+colorNormal, api.Page.Name+lineEnd)
+		fmt.Println(colorYellow+"["+api.Status.Description+"]"+colorNormal, targetName+lineEnd)
 	}
 }
 
-func PrintStatusShort(api APIsummary, lineEnd string) {
+func PrintStatusShort(api APIsummary, targetName string, lineEnd string) {
 	if api.Status.Description == "All Systems Operational" {
-		fmt.Println(colorGreen+"["+api.Status.Description+"]"+colorNormal, api.Page.Name+lineEnd)
+		fmt.Println(colorGreen+"["+api.Status.Description+"]"+colorNormal, targetName+lineEnd)
 	} else {
-		fmt.Println(colorYellow+"["+api.Status.Description+"]"+colorNormal, api.Page.Name+lineEnd)
+		fmt.Println(colorYellow+"["+api.Status.Description+"]"+colorNormal, targetName+lineEnd)
 	}
 }
 
-func PrintStatusDetails(api APIsummary) {
-	fmt.Println(colorCyan+"Name:"+colorNormal, api.Page.Name)
+func PrintStatusDetails(api APIsummary, targetName string) {
+	fmt.Println(colorCyan+"Name:"+colorNormal, targetName)
 	fmt.Println("")
 
 	for i := range api.Components {
@@ -161,13 +161,22 @@ func PrintStatusDetails(api APIsummary) {
 	}
 }
 
-func StatusChecker(ii int, format string, noTime bool) {
+func StatusChecker(ii int, format string, noTime bool, useTargetName bool) {
 	// Beginning of time counting
 	startTime := time.Now()
 
 	// Get API data
 	rawApiData := GetApiAnswer(config.ApiList[ii].URL + "/api/v2/summary.json")
 	apiData := ParseApiAnswer(rawApiData)
+
+	//useTargetName check
+	targetName := ""
+	if useTargetName == true {
+		targetName = config.ApiList[ii].Name
+
+	} else {
+		targetName = apiData.Page.Name
+	}
 
 	// End of time counting
 	totalTime := time.Since(startTime).Seconds()
@@ -176,26 +185,26 @@ func StatusChecker(ii int, format string, noTime bool) {
 	// Print result
 	if format == "short-err" {
 		if noTime == false {
-			PrintStatusShortErr(apiData, " ("+totalTimeStr+")")
+			PrintStatusShortErr(apiData, targetName, " ("+totalTimeStr+")")
 
 		} else {
-			PrintStatusShortErr(apiData, "")
+			PrintStatusShortErr(apiData, targetName, "")
 		}
 		return
 	}
 
 	if format == "short" {
 		if noTime == false {
-			PrintStatusShort(apiData, " ("+totalTimeStr+")")
+			PrintStatusShort(apiData, targetName, " ("+totalTimeStr+")")
 
 		} else {
-			PrintStatusShort(apiData, "")
+			PrintStatusShort(apiData, targetName, "")
 		}
 		return
 	}
 
 	if format == "long" {
-		PrintStatusDetails(apiData)
+		PrintStatusDetails(apiData, targetName)
 		if noTime == false {
 			fmt.Println(colorCyan+"Total time:"+colorNormal, totalTimeStr)
 		}
@@ -212,6 +221,7 @@ func main() {
 	argTarget := flag.String("target", "", "Names of pages to be checked, separated by spacing")
 	argFormat := flag.String("format", "short", "Console output format. (short-err | short | long)")
 	argNoColors := flag.Bool("no-colors", false, "Disable colorized console output")
+	argUseTargetName := flag.Bool("use-target-name", false, "Outputs the name used by the -target flag")
 	argNoTime := flag.Bool("no-time", false, "Disables the display of time spent on the request")
 	argHelp := flag.Bool("help", false, "Show help and exit")
 	argVersion := flag.Bool("version", false, "Show version and exit")
@@ -263,7 +273,7 @@ func main() {
 	// Checking pages status
 	if *argTarget == "" || *argTarget == "all" {
 		for ii := range config.ApiList {
-			StatusChecker(ii, *argFormat, *argNoTime)
+			StatusChecker(ii, *argFormat, *argNoTime, *argUseTargetName)
 		}
 
 	} else {
@@ -272,7 +282,7 @@ func main() {
 		for i := range targetPages {
 			for ii := range config.ApiList {
 				if targetPages[i] == config.ApiList[ii].Name {
-					StatusChecker(ii, *argFormat, *argNoTime)
+					StatusChecker(ii, *argFormat, *argNoTime, *argUseTargetName)
 					break
 				}
 			}
