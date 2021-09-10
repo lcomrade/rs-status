@@ -19,6 +19,10 @@ var ApiList = []ApiListType{
 		URL:  "https://status.codecov.com",
 	},
 	{
+		Name: "Coinbase",
+		URL:  "https://status.coinbase.com",
+	},
+	{
 		Name: "DigitalOcean",
 		URL:  "https://status.digitalocean.com",
 	},
@@ -41,6 +45,10 @@ var ApiList = []ApiListType{
 	{
 		Name: "Mozilla",
 		URL:  "https://status.mozilla.org",
+	},
+	{
+		Name: "NewRelic",
+		URL:  "https://status.newrelic.com",
 	},
 	{
 		Name: "Notion",
@@ -67,8 +75,16 @@ var ApiList = []ApiListType{
 		URL:  "https://status.redhat.com",
 	},
 	{
+		Name: "Squarespace",
+		URL:  "https://status.squarespace.com",
+	},
+	{
 		Name: "TravisCI",
 		URL:  "https://www.traviscistatus.com",
+	},
+	{
+		Name: "Twilio",
+		URL:  "https://status.twilio.com",
 	},
 	{
 		Name: "Twitch",
