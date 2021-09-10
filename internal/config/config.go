@@ -79,6 +79,10 @@ var ApiList = []ApiListType{
 		URL:  "https://status.segment.com",
 	},
 	{
+		Name: "Sentry",
+		URL:  "https://status.sentry.io",
+	},
+	{
 		Name: "Squarespace",
 		URL:  "https://status.squarespace.com",
 	},
