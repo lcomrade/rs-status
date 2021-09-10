@@ -162,6 +162,12 @@ func PrintStatusDetails(api APIsummary, targetName string) {
 }
 
 func StatusChecker(ii int, format string, noTime bool, useTargetName bool) {
+	// Print service info
+	if format == "api-list" {
+		fmt.Println(config.ApiList[ii].Name, config.ApiList[ii].URL)
+		return
+	}
+
 	// Beginning of time counting
 	startTime := time.Now()
 
@@ -219,7 +225,7 @@ func main() {
 	// Flags
 	argList := flag.Bool("list", false, "Print a list of known pages")
 	argTarget := flag.String("target", "", "Names of pages to be checked, separated by spacing")
-	argFormat := flag.String("format", "short", "Console output format. (short-err | short | long)")
+	argFormat := flag.String("format", "short", "Console output format. (short-err | short | long || api-list)")
 	argNoColors := flag.Bool("no-colors", false, "Disable colorized console output")
 	argUseTargetName := flag.Bool("use-target-name", false, "Outputs the name used by the -target flag")
 	argNoTime := flag.Bool("no-time", false, "Disables the display of time spent on the request")
