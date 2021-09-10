@@ -83,6 +83,10 @@ var ApiList = []ApiListType{
 		URL:  "https://status.squarespace.com",
 	},
 	{
+		Name: "Trustpilot",
+		URL:  "https://status.trustpilot.com",
+	},
+	{
 		Name: "TravisCI",
 		URL:  "https://www.traviscistatus.com",
 	},
