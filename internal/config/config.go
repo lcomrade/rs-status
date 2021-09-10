@@ -75,6 +75,10 @@ var ApiList = []ApiListType{
 		URL:  "https://status.redhat.com",
 	},
 	{
+		Name: "Segment",
+		URL:  "https://status.segment.com",
+	},
+	{
 		Name: "Squarespace",
 		URL:  "https://status.squarespace.com",
 	},
@@ -93,6 +97,10 @@ var ApiList = []ApiListType{
 	{
 		Name: "Twitter",
 		URL:  "https://api.twitterstat.us",
+	},
+	{
+		Name: "Typeform",
+		URL:  "https://status.typeform.com",
 	},
 	{
 		Name: "Zoom",
