@@ -16,7 +16,7 @@ SITE_RELEASE_URL = https://github.com/lcomrade/rs-status/releases/tag/v$(VERSION
 
 TMP_BUILD_DIR := /tmp/$(NAME)_build_$(shell head -c 100 /dev/urandom | base64 | sed 's/[+=/A-Z]//g' | tail -c 10)
 
-.PHONY: all test release install uninstall deb rpm clean
+.PHONY: all test release install uninstall deb rpm win-zip clean
 
 all:
 	mkdir -p dist/
@@ -106,6 +106,11 @@ release:
 	GOOS=plan9 GOARCH=arm   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).plan9.arm   $(MAIN_GO)
 
 	GOOS=solaris GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).solaris.amd64 $(MAIN_GO)
+
+	#Windows
+	GOARCH=386   LDFLAGS="$(LDFLAGS)" make win-zip
+	GOARCH=amd64 LDFLAGS="$(LDFLAGS)" make win-zip
+	GOARCH=arm   LDFLAGS="$(LDFLAGS)" make win-zip
 	
 deb:
 	mkdir -p $(TMP_BUILD_DIR)/$(NAME).$(GOOS).$(GOARCH)/DEBIAN/
@@ -180,6 +185,21 @@ rpm:
 	mv $(TMP_BUILD_DIR)/RPMS/$(RPMARCH)/*.rpm dist/
 
 	rm -rf $(TMP_BUILD_DIR)/
+
+win-zip:
+	mkdir -p $(TMP_BUILD_DIR)/
+	mkdir ./dist
+
+	GOOS=windows GOARCH=$(GOARCH) go build -ldflags="$(LDFLAGS)" -o $(TMP_BUILD_DIR)/$(NAME).exe $(MAIN_GO)
+	
+	cp LICENSE $(TMP_BUILD_DIR)/LICENSE.txt
+	cp README.md $(TMP_BUILD_DIR)/
+
+	bash -c "cd $(TMP_BUILD_DIR)/ && zip -9 $(NAME).windows.$(GOARCH).zip *"
+	mv $(TMP_BUILD_DIR)/$(NAME).windows.$(GOARCH).zip ./dist/$(NAME).windows.$(GOARCH).zip
+
+	rm -rf $(TMP_BUILD_DIR)/
+	
 
 clean:
 	rm -rf dist/

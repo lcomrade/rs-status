@@ -68,6 +68,11 @@ Creates the rpm package.
 
 **Environment variables**: `GOOS`, `GOARCH`, `VERSION`, `RPMARCH`, `MAINTAINER`
 
+## make win-zip
+Creates a zip archive for Windows. Inside is an exe file of the program and a license.
+
+**Environment variables**: `GOOS`, `LDFLAGS`
+
 ## make clean
 Deletes all files created during configuration and build.
 
