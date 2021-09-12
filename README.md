@@ -49,6 +49,7 @@ The only available installation method is to use the zip archive from the [relea
 
 ## Documentation
 - [Building on UNIX-like systems](https://github.com/lcomrade/rs-status/blob/main/docs/make.md)
+- [Adding custom pages](https://github.com/lcomrade/rs-status/blob/main/docs/add_custom_page.md)
 
 ## Bugs and Suggestion
 If you find a bug or have a suggestion, create an Issue [here](https://github.com/lcomrade/rs-status/issues)
