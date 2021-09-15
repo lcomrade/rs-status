@@ -39,8 +39,9 @@ Under Linux there are several options available. All of them can be found on the
 - Lonely binary
 
 ### Windows
-Installers, Choco and Scoop manifest packages for Windows starting with version 0.2 are no longer created.
-The only available installation method is to use the zip archive from the [release page](https://github.com/lcomrade/rs-status/releases/latest).
+You can download the following available options from the [release page](https://github.com/lcomrade/rs-status/releases/latest):
+- ZIP archive
+- [Choco package](https://community.chocolatey.org/packages/rs-status)
 
 ### Another UNIX-like systems
 1. Download a binary file for your OS and architecture from the [release page](https://github.com/lcomrade/rs-status/releases/latest)
