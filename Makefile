@@ -108,9 +108,9 @@ release:
 	GOOS=solaris GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).solaris.amd64 $(MAIN_GO)
 
 	#Windows
-	GOARCH=386   LDFLAGS="$(LDFLAGS)" make win-zip
-	GOARCH=amd64 LDFLAGS="$(LDFLAGS)" make win-zip
-	GOARCH=arm   LDFLAGS="$(LDFLAGS)" make win-zip
+	#GOARCH=386   LDFLAGS="$(LDFLAGS)" make win-zip
+	#GOARCH=amd64 LDFLAGS="$(LDFLAGS)" make win-zip
+	#GOARCH=arm   LDFLAGS="$(LDFLAGS)" make win-zip
 	
 deb:
 	mkdir -p $(TMP_BUILD_DIR)/$(NAME).$(GOOS).$(GOARCH)/DEBIAN/
