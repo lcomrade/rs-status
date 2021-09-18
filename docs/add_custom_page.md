@@ -1,3 +1,4 @@
+# Adding custom pages
 At the moment, there is only one way to add custom pages - by editing the source code of the program.
 
 ## Build
@@ -25,3 +26,6 @@ var ApiList = []ApiListType{
 **5.** Run: `make`
 
 **6.** The binary is located in the directory: `./dist`
+
+## Adding to main repo
+To add your page to the main repository for this you can create a **pull request or issue**.
