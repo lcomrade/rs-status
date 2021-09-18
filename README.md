@@ -49,6 +49,7 @@ You can download the following available options from the [release page](https:/
 3. Place program in `/usr/local/bin/` or in another directory provided for installing binary files
 
 ## Documentation
+- [FAQ](https://github.com/lcomrade/rs-status/blob/main/docs/faq.md)
 - [Building on UNIX-like systems](https://github.com/lcomrade/rs-status/blob/main/docs/make.md)
 - [Adding custom pages](https://github.com/lcomrade/rs-status/blob/main/docs/add_custom_page.md)
 
