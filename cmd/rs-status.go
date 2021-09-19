@@ -35,7 +35,7 @@ import (
 // Program information
 var (
 	programName    = "rs-status"
-	programVersion = "0.1"
+	programVersion = "dev"
 	programSiteURL = "https://github.com/lcomrade/rs-status"
 )
 
