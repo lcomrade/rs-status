@@ -11,6 +11,10 @@ var ApiList = []ApiListType{
 		URL:  "https://status.atlassian.com",
 	},
 	{
+		Name: "Bitbucket",
+		URL:  "https://bitbucket.status.atlassian.com",
+	},
+	{
 		Name: "CircleCI",
 		URL:  "https://status.circleci.com",
 	},
