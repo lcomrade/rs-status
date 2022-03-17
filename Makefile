@@ -80,29 +80,29 @@ release:
 	GOOS=linux GOARCH=s390x  DEBARCH=s390x   VERSION=$(VERSION) MAINTAINER="$(MAINTAINER)" make deb
 
 	#BSD
-	GOOS=freebsd GOARCH=386   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).freebsd.386   $(MAIN_GO)
-	GOOS=freebsd GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).freebsd.amd64 $(MAIN_GO)
-	GOOS=freebsd GOARCH=arm   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).freebsd.arm   $(MAIN_GO)
-	GOOS=freebsd GOARCH=arm64 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).freebsd.arm64 $(MAIN_GO)
+	GOOS=freebsd GOARCH=386   go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).freebsd.386   $(MAIN_GO)
+	GOOS=freebsd GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).freebsd.amd64 $(MAIN_GO)
+	GOOS=freebsd GOARCH=arm   go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).freebsd.arm   $(MAIN_GO)
+	GOOS=freebsd GOARCH=arm64 go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).freebsd.arm64 $(MAIN_GO)
 
-	GOOS=openbsd GOARCH=386   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).openbsd.386   $(MAIN_GO)
-	GOOS=openbsd GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).openbsd.amd64 $(MAIN_GO)
-	GOOS=openbsd GOARCH=arm   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).openbsd.arm   $(MAIN_GO)
-	GOOS=openbsd GOARCH=arm64 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).openbsd.arm64 $(MAIN_GO)
+	GOOS=openbsd GOARCH=386   go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).openbsd.386   $(MAIN_GO)
+	GOOS=openbsd GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).openbsd.amd64 $(MAIN_GO)
+	GOOS=openbsd GOARCH=arm   go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).openbsd.arm   $(MAIN_GO)
+	GOOS=openbsd GOARCH=arm64 go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).openbsd.arm64 $(MAIN_GO)
 
-	GOOS=netbsd GOARCH=386    go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).netbsd.386   $(MAIN_GO)
-	GOOS=netbsd GOARCH=amd64  go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).netbsd.amd64 $(MAIN_GO)
-	GOOS=netbsd GOARCH=arm    go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).netbsd.arm   $(MAIN_GO)
-	GOOS=netbsd GOARCH=arm64  go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).netbsd.arm64 $(MAIN_GO)
+	GOOS=netbsd GOARCH=386    go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).netbsd.386   $(MAIN_GO)
+	GOOS=netbsd GOARCH=amd64  go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).netbsd.amd64 $(MAIN_GO)
+	GOOS=netbsd GOARCH=arm    go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).netbsd.arm   $(MAIN_GO)
+	GOOS=netbsd GOARCH=arm64  go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).netbsd.arm64 $(MAIN_GO)
 
 	#UNIX-like
-	GOOS=darwin GOARCH=amd64  go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).darwin.amd64 $(MAIN_GO)
+	GOOS=darwin GOARCH=amd64  go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).darwin.amd64 $(MAIN_GO)
 
-	GOOS=plan9 GOARCH=386   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).plan9.386   $(MAIN_GO)
-	GOOS=plan9 GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).plan9.amd64 $(MAIN_GO)
-	GOOS=plan9 GOARCH=arm   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).plan9.arm   $(MAIN_GO)
+	GOOS=plan9 GOARCH=386   go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).plan9.386   $(MAIN_GO)
+	GOOS=plan9 GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).plan9.amd64 $(MAIN_GO)
+	GOOS=plan9 GOARCH=arm   go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).plan9.arm   $(MAIN_GO)
 
-	GOOS=solaris GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).solaris.amd64 $(MAIN_GO)
+	GOOS=solaris GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).solaris.amd64 $(MAIN_GO)
 
 deb:
 	mkdir -p $(TMP_BUILD_DIR)/$(NAME).$(GOOS).$(GOARCH)/DEBIAN/
@@ -134,7 +134,7 @@ deb:
 
 	DESTDIR=$(TMP_BUILD_DIR)/$(NAME).$(GOOS).$(GOARCH) PREFIX=/usr make install
 
-	bash -c "cd $(TMP_BUILD_DIR)/$(NAME).$(GOOS).$(GOARCH)/ && md5deep -r -l usr/ > DEBIAN/md5sums"
+	bash -c "cd $(TMP_BUILD_DIR)/$(NAME).$(GOOS).$(GOARCH)/ && md5deep -r -l ./usr/ > ./DEBIAN/md5sums"
 
 	fakeroot dpkg-deb --build $(TMP_BUILD_DIR)/$(NAME).$(GOOS).$(GOARCH)
 

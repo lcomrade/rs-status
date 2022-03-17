@@ -1,31 +1,23 @@
 # Adding custom pages
-At the moment, there is only one way to add custom pages - by editing the source code of the program.
+At the moment, there is only one way to add custom pages - editing the source code of the program.
 
-## Build
-**1.** Getting the source code: `git clone https://github.com/lcomrade/rs-status.git`
-
-**2.** `cd ./rs-status/`
-
-**3.** Add your page to the file `./internal/config/config.go`:
+## Adding custom page in source code
+Add your page to the file `./cmd/rs-status_config.go`:
 ```
 var ApiList = []ApiListType{
 	{
 		Name: "GitHub",
 		URL:  "https://www.githubstatus.com",
 	},
+	// Other pages
 }
 ```
 
 *Attention:*
- - The `Name` must not contain spaces
- - The `URL` must begin with `http://` or `https://`
- - The `URL` must not end in `/`
-
-**4.** Install `golang` and `make`
-
-**5.** Run: `make`
-
-**6.** The binary is located in the directory: `./dist`
+- Pages in the list should be in alphabetical order
+- The `Name` must not contain spaces
+- The `URL` must begin with `http://` or `https://`
+- The `URL` must not end in `/`
 
 ## Adding to main repo
 To add your page to the main repository for this you can create a **pull request or issue**.
