@@ -4,41 +4,38 @@ VERSION ?= nil
 GOOS ?= $(shell go env GOOS)
 GOARCH ?= $(shell go env GOARCH)
 LDFLAGS ?= -w -s -X 'main.programVersion=$(VERSION)'
-MAIN_GO = ./cmd/rs-status.go
+MAIN_GO = ./cmd/*.go
 
 
 PREFIX ?= /usr/local
 
-MAINTAINER ?= nil <nil>
+MAINTAINER ?= anon <anon@localhost>
 SITE_URL = https://github.com/lcomrade/rs-status
 SITE_RELEASE_URL = https://github.com/lcomrade/rs-status/releases/tag/v$(VERSION)
 
 
 TMP_BUILD_DIR := /tmp/$(NAME)_build_$(shell head -c 100 /dev/urandom | base64 | sed 's/[+=/A-Z]//g' | tail -c 10)
 
-.PHONY: all test release install uninstall deb rpm win-zip clean
+.PHONY: all release install uninstall deb rpm clean
 
 all:
-	mkdir -p dist/
+	mkdir -p ./dist/
 	
-	go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).$(GOOS).$(GOARCH) $(MAIN_GO)
-	chmod +x dist/$(NAME).$(GOOS).$(GOARCH)
-
-test:
-	go test -v ./...
+	go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).$(GOOS).$(GOARCH) $(MAIN_GO)
+	chmod +x ./dist/$(NAME).$(GOOS).$(GOARCH)
 
 install:
 	mkdir -p $(DESTDIR)$(PREFIX)/bin/
-	cp dist/$(NAME).$(GOOS).$(GOARCH) $(DESTDIR)$(PREFIX)/bin/$(NAME)
+	cp ./dist/$(NAME).$(GOOS).$(GOARCH) $(DESTDIR)$(PREFIX)/bin/$(NAME)
 
 uninstall:
 	rm $(DESTDIR)$(PREFIX)/bin/$(NAME)
 
 release:
 	#GNU/Linux 386, amd64, arm64
-	GOOS=linux GOARCH=386   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.386  $(MAIN_GO)
-	GOOS=linux GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.amd64 $(MAIN_GO)
-	GOOS=linux GOARCH=arm64 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.arm64 $(MAIN_GO)
+	GOOS=linux GOARCH=386   go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).linux.386  $(MAIN_GO)
+	GOOS=linux GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).linux.amd64 $(MAIN_GO)
+	GOOS=linux GOARCH=arm64 go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).linux.arm64 $(MAIN_GO)
 
 	GOOS=linux GOARCH=386   DEBARCH=i386  VERSION=$(VERSION) MAINTAINER="$(MAINTAINER)" make deb
 	GOOS=linux GOARCH=amd64 DEBARCH=amd64 VERSION=$(VERSION) MAINTAINER="$(MAINTAINER)" make deb
@@ -49,36 +46,36 @@ release:
 	GOOS=linux GOARCH=arm64 RPMARCH=aarch64 VERSION=$(VERSION) MAINTAINER="$(MAINTAINER)" make rpm
 
 	#GNU/Linux ARM
-	GOOS=linux GOARCH=arm GOARM=5 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.arm_v5 $(MAIN_GO)
-	GOOS=linux GOARCH=arm GOARM=6 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.arm_v6 $(MAIN_GO)
-	GOOS=linux GOARCH=arm GOARM=7 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.arm_v7 $(MAIN_GO)
+	GOOS=linux GOARCH=arm GOARM=5 go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).linux.arm_v5 $(MAIN_GO)
+	GOOS=linux GOARCH=arm GOARM=6 go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).linux.arm_v6 $(MAIN_GO)
+	GOOS=linux GOARCH=arm GOARM=7 go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).linux.arm_v7 $(MAIN_GO)
 
 	GOOS=linux GOARCH=arm_v5 GOARM=5 DEBARCH=armel  VERSION=$(VERSION) MAINTAINER="$(MAINTAINER)" make deb
 	GOOS=linux GOARCH=arm_v7 GOARM=7 DEBARCH=armhf  VERSION=$(VERSION) MAINTAINER="$(MAINTAINER)" make deb
 
 	#GNU/Linux MIPS
-	GOOS=linux GOARCH=mips     go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.mips     $(MAIN_GO)
-	GOOS=linux GOARCH=mipsle   go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.mipsle   $(MAIN_GO)
-	GOOS=linux GOARCH=mips64le go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.mips64le $(MAIN_GO)
+	GOOS=linux GOARCH=mips     go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).linux.mips     $(MAIN_GO)
+	GOOS=linux GOARCH=mipsle   go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).linux.mipsle   $(MAIN_GO)
+	GOOS=linux GOARCH=mips64le go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).linux.mips64le $(MAIN_GO)
 
 	GOOS=linux GOARCH=mips     DEBARCH=mips     VERSION=$(VERSION) MAINTAINER="$(MAINTAINER)" make deb
 	GOOS=linux GOARCH=mipsle   DEBARCH=mipsel   VERSION=$(VERSION) MAINTAINER="$(MAINTAINER)" make deb
 	GOOS=linux GOARCH=mips64le DEBARCH=mips64el VERSION=$(VERSION) MAINTAINER="$(MAINTAINER)" make deb
 
 	#GNU/Linux PPC
-	GOOS=linux GOARCH=ppc64    go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.ppc64   $(MAIN_GO)
-	GOOS=linux GOARCH=ppc64le  go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.ppc64le $(MAIN_GO)
+	GOOS=linux GOARCH=ppc64    go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).linux.ppc64   $(MAIN_GO)
+	GOOS=linux GOARCH=ppc64le  go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).linux.ppc64le $(MAIN_GO)
 
 	GOOS=linux GOARCH=ppc64    DEBARCH=ppc64     VERSION=$(VERSION) MAINTAINER="$(MAINTAINER)" make deb
 	GOOS=linux GOARCH=ppc64le  DEBARCH=ppc64el   VERSION=$(VERSION) MAINTAINER="$(MAINTAINER)" make deb
 
 	#GNU/Linux RISC
-	GOOS=linux GOARCH=riscv64  go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.riscv64 $(MAIN_GO)
+	GOOS=linux GOARCH=riscv64  go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).linux.riscv64 $(MAIN_GO)
 
 	GOOS=linux GOARCH=riscv64  DEBARCH=riscv64   VERSION=$(VERSION) MAINTAINER="$(MAINTAINER)" make deb
 
 	#GNU/Linux s390x
-	GOOS=linux GOARCH=s390x  go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).linux.s390x $(MAIN_GO)
+	GOOS=linux GOARCH=s390x  go build -ldflags="$(LDFLAGS)" -o ./dist/$(NAME).linux.s390x $(MAIN_GO)
 
 	GOOS=linux GOARCH=s390x  DEBARCH=s390x   VERSION=$(VERSION) MAINTAINER="$(MAINTAINER)" make deb
 
@@ -107,16 +104,11 @@ release:
 
 	GOOS=solaris GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o dist/$(NAME).solaris.amd64 $(MAIN_GO)
 
-	#Windows
-	#GOARCH=386   LDFLAGS="$(LDFLAGS)" make win-zip
-	#GOARCH=amd64 LDFLAGS="$(LDFLAGS)" make win-zip
-	#GOARCH=arm   LDFLAGS="$(LDFLAGS)" make win-zip
-	
 deb:
 	mkdir -p $(TMP_BUILD_DIR)/$(NAME).$(GOOS).$(GOARCH)/DEBIAN/
 	
 	mkdir -p $(TMP_BUILD_DIR)/$(NAME).$(GOOS).$(GOARCH)/usr/share/doc/$(NAME)/
-	cp README.md $(TMP_BUILD_DIR)/$(NAME).$(GOOS).$(GOARCH)/usr/share/doc/$(NAME)/
+	cp ./README.md $(TMP_BUILD_DIR)/$(NAME).$(GOOS).$(GOARCH)/usr/share/doc/$(NAME)/
 	
 	echo 'Package: $(NAME)' > $(TMP_BUILD_DIR)/$(NAME).$(GOOS).$(GOARCH)/DEBIAN/control
 	echo 'Provides: $(NAME)' >> $(TMP_BUILD_DIR)/$(NAME).$(GOOS).$(GOARCH)/DEBIAN/control
@@ -146,7 +138,7 @@ deb:
 
 	fakeroot dpkg-deb --build $(TMP_BUILD_DIR)/$(NAME).$(GOOS).$(GOARCH)
 
-	mv $(TMP_BUILD_DIR)/*.deb dist/$(NAME)_$(VERSION)_$(DEBARCH).deb
+	mv $(TMP_BUILD_DIR)/*.deb ./dist/$(NAME)_$(VERSION)_$(DEBARCH).deb
 	
 	rm -rf $(TMP_BUILD_DIR)/
 
@@ -155,7 +147,7 @@ rpm:
 	mkdir -p $(TMP_BUILD_DIR)/SPECS/
 
 	mkdir -p $(TMP_BUILD_DIR)/BUILDROOT/$(NAME)-$(VERSION)-1.$(RPMARCH)/usr/share/doc/$(NAME)/
-	cp README.md $(TMP_BUILD_DIR)/BUILDROOT/$(NAME)-$(VERSION)-1.$(RPMARCH)/usr/share/doc/$(NAME)/
+	cp ./README.md $(TMP_BUILD_DIR)/BUILDROOT/$(NAME)-$(VERSION)-1.$(RPMARCH)/usr/share/doc/$(NAME)/
 
 	echo 'Name: $(NAME)' > $(TMP_BUILD_DIR)/SPECS/$(NAME).spec
 	echo 'Version: $(VERSION)' >> $(TMP_BUILD_DIR)/SPECS/$(NAME).spec
@@ -182,25 +174,10 @@ rpm:
 	
 	BUILDROOT=$(TMP_BUILD_DIR)/BUILDROOT rpmbuild --target $(RPMARCH) --define '_topdir $(TMP_BUILD_DIR)' -bb $(TMP_BUILD_DIR)/SPECS/$(NAME).spec
 
-	mv $(TMP_BUILD_DIR)/RPMS/$(RPMARCH)/*.rpm dist/
+	mv $(TMP_BUILD_DIR)/RPMS/$(RPMARCH)/*.rpm ./dist/
 
 	rm -rf $(TMP_BUILD_DIR)/
-
-win-zip:
-	mkdir -p $(TMP_BUILD_DIR)/
-	mkdir ./dist
-
-	GOOS=windows GOARCH=$(GOARCH) go build -ldflags="$(LDFLAGS)" -o $(TMP_BUILD_DIR)/$(NAME).exe $(MAIN_GO)
-	
-	cp LICENSE $(TMP_BUILD_DIR)/LICENSE.txt
-	cp README.md $(TMP_BUILD_DIR)/
-
-	bash -c "cd $(TMP_BUILD_DIR)/ && zip -9 $(NAME).windows.$(GOARCH).zip *"
-	mv $(TMP_BUILD_DIR)/$(NAME).windows.$(GOARCH).zip ./dist/$(NAME).windows.$(GOARCH).zip
-
-	rm -rf $(TMP_BUILD_DIR)/
-	
 
 clean:
-	rm -rf dist/
+	rm -rf ./dist/
 	rm -rf /tmp/$(NAME)_build_*

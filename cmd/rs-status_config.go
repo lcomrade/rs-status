@@ -1,4 +1,4 @@
-package config
+package main
 
 type ApiListType struct {
 	Name string

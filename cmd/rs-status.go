@@ -20,7 +20,6 @@
 package main
 
 import (
-	"../internal/config"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -164,7 +163,7 @@ func PrintStatusDetails(api APIsummary, targetName string) {
 func StatusChecker(ii int, format string, noTime bool, useTargetName bool) {
 	// Print service info
 	if format == "api-list" {
-		fmt.Println(config.ApiList[ii].Name, config.ApiList[ii].URL)
+		fmt.Println(ApiList[ii].Name, ApiList[ii].URL)
 		return
 	}
 
@@ -172,13 +171,13 @@ func StatusChecker(ii int, format string, noTime bool, useTargetName bool) {
 	startTime := time.Now()
 
 	// Get API data
-	rawApiData := GetApiAnswer(config.ApiList[ii].URL + "/api/v2/summary.json")
+	rawApiData := GetApiAnswer(ApiList[ii].URL + "/api/v2/summary.json")
 	apiData := ParseApiAnswer(rawApiData)
 
 	//useTargetName check
 	targetName := ""
 	if useTargetName == true {
-		targetName = config.ApiList[ii].Name
+		targetName = ApiList[ii].Name
 
 	} else {
 		targetName = apiData.Page.Name
@@ -249,8 +248,8 @@ func main() {
 
 	// -list flag
 	if *argList == true {
-		for i := range config.ApiList {
-			fmt.Println(config.ApiList[i].Name)
+		for i := range ApiList {
+			fmt.Println(ApiList[i].Name)
 		}
 
 		os.Exit(0)
@@ -278,7 +277,7 @@ func main() {
 
 	// Checking pages status
 	if *argTarget == "" || *argTarget == "all" {
-		for ii := range config.ApiList {
+		for ii := range ApiList {
 			StatusChecker(ii, *argFormat, *argNoTime, *argUseTargetName)
 		}
 
@@ -286,8 +285,8 @@ func main() {
 		targetPages := strings.Fields(*argTarget)
 
 		for i := range targetPages {
-			for ii := range config.ApiList {
-				if targetPages[i] == config.ApiList[ii].Name {
+			for ii := range ApiList {
+				if targetPages[i] == ApiList[ii].Name {
 					StatusChecker(ii, *argFormat, *argNoTime, *argUseTargetName)
 					break
 				}
