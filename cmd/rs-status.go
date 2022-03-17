@@ -1,4 +1,4 @@
-//  Copyright 2021 Leonid Maslakov
+//  Copyright 2021, 2022 Leonid Maslakov
 
 //  License: GPL-3.0-or-later
 
@@ -269,7 +269,7 @@ func main() {
 		fmt.Println("Site URL:", programSiteURL)
 		fmt.Println("License: GNU GPL version 3 or later <https://www.gnu.org/licenses/>")
 		fmt.Println("")
-		fmt.Println("rs-status  Copyright (C) 2021  Leonid Maslakov")
+		fmt.Println("rs-status  Copyright (C) 2021, 2022  Leonid Maslakov")
 		fmt.Println("This is free software, and you are welcome to redistribute it.")
 		fmt.Println("This program comes with ABSOLUTELY NO WARRANTY.")
 

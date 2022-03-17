@@ -71,6 +71,10 @@ var ApiList = []ApiListType{
 		URL:  "https://www.intercomstatus.com",
 	},
 	{
+		Name: "Matrix",
+		URL:  "https://status.matrix.org",
+	},
+	{
 		Name: "reddit",
 		URL:  "https://www.redditstatus.com",
 	},
@@ -113,6 +117,10 @@ var ApiList = []ApiListType{
 	{
 		Name: "Typeform",
 		URL:  "https://status.typeform.com",
+	},
+	{
+		Name: "Unsplash",
+		URL:  "https://status.unsplash.com",
 	},
 	{
 		Name: "Zoom",
