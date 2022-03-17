@@ -160,13 +160,7 @@ func PrintStatusDetails(api APIsummary, targetName string) {
 	}
 }
 
-func StatusChecker(ii int, format string, noTime bool, useTargetName bool) {
-	// Print service info
-	if format == "api-list" {
-		fmt.Println(ApiList[ii].Name, ApiList[ii].URL)
-		return
-	}
-
+func StatusChecker(ii int, format string, noTime bool) {
 	// Beginning of time counting
 	startTime := time.Now()
 
@@ -175,13 +169,7 @@ func StatusChecker(ii int, format string, noTime bool, useTargetName bool) {
 	apiData := ParseApiAnswer(rawApiData)
 
 	//useTargetName check
-	targetName := ""
-	if useTargetName == true {
-		targetName = ApiList[ii].Name
-
-	} else {
-		targetName = apiData.Page.Name
-	}
+	targetName := ApiList[ii].Name
 
 	// End of time counting
 	totalTime := time.Since(startTime).Seconds()
@@ -222,11 +210,11 @@ func StatusChecker(ii int, format string, noTime bool, useTargetName bool) {
 
 func main() {
 	// Flags
-	argList := flag.Bool("list", false, "Print a list of known pages")
+	argList := flag.Bool("list", false, "Print a list of known pages names")
+	argListUrl := flag.Bool("list-url", false, "Print a list of known page names and its URL")
 	argTarget := flag.String("target", "", "Names of pages to be checked, separated by spacing")
-	argFormat := flag.String("format", "short", "Console output format. (short-err | short | long || api-list)")
+	argFormat := flag.String("format", "short", "Console output format. (short-err | short | long)")
 	argNoColors := flag.Bool("no-colors", false, "Disable colorized console output")
-	argUseTargetName := flag.Bool("use-target-name", false, "Outputs the name used by the -target flag")
 	argNoTime := flag.Bool("no-time", false, "Disables the display of time spent on the request")
 	argHelp := flag.Bool("help", false, "Show help and exit")
 	argVersion := flag.Bool("version", false, "Show version and exit")
@@ -246,6 +234,27 @@ func main() {
 		colorNormal = ""
 	}
 
+	// -help flag
+	if *argHelp == true {
+		flag.PrintDefaults()
+		os.Exit(0)
+	}
+
+	// -version flag
+	if *argVersion == true {
+		fmt.Println(programVersion)
+		os.Exit(0)
+	}
+
+	// -list-url flag
+	if *argListUrl == true {
+		for i := range ApiList {
+			fmt.Println(ApiList[i].Name, ApiList[i].URL)
+		}
+
+		os.Exit(0)
+	}
+
 	// -list flag
 	if *argList == true {
 		for i := range ApiList {
@@ -255,30 +264,10 @@ func main() {
 		os.Exit(0)
 	}
 
-	// -help flag
-	if *argHelp == true {
-		flag.PrintDefaults()
-		os.Exit(0)
-	}
-
-	// -version flag
-	if *argVersion == true {
-		fmt.Println(programName, programVersion)
-		fmt.Println("")
-		fmt.Println("Site URL:", programSiteURL)
-		fmt.Println("License: GNU GPL version 3 or later <https://www.gnu.org/licenses/>")
-		fmt.Println("")
-		fmt.Println("rs-status  Copyright (C) 2021, 2022  Leonid Maslakov")
-		fmt.Println("This is free software, and you are welcome to redistribute it.")
-		fmt.Println("This program comes with ABSOLUTELY NO WARRANTY.")
-
-		os.Exit(0)
-	}
-
 	// Checking pages status
 	if *argTarget == "" || *argTarget == "all" {
 		for ii := range ApiList {
-			StatusChecker(ii, *argFormat, *argNoTime, *argUseTargetName)
+			StatusChecker(ii, *argFormat, *argNoTime)
 		}
 
 	} else {
@@ -287,7 +276,7 @@ func main() {
 		for i := range targetPages {
 			for ii := range ApiList {
 				if targetPages[i] == ApiList[ii].Name {
-					StatusChecker(ii, *argFormat, *argNoTime, *argUseTargetName)
+					StatusChecker(ii, *argFormat, *argNoTime)
 					break
 				}
 			}

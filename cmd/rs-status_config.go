@@ -59,7 +59,7 @@ var ApiList = []ApiListType{
 		URL:  "https://status.notion.so",
 	},
 	{
-		Name: "npm",
+		Name: "NPM",
 		URL:  "https://status.npmjs.org",
 	},
 	{
@@ -75,7 +75,7 @@ var ApiList = []ApiListType{
 		URL:  "https://status.matrix.org",
 	},
 	{
-		Name: "reddit",
+		Name: "Reddit",
 		URL:  "https://www.redditstatus.com",
 	},
 	{
